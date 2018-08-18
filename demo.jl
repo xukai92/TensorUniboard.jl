@@ -20,6 +20,7 @@ push!(ld::LineData, x::Float64, y::Float64) = (push!(ld.x, x); push!(ld.y, y))
 
 struct LineDataGroup
   line_data_arr::Vector{LineData}
+  name::AbstractString
 end
 getindex(ldg::LineDataGroup, idx::Int) = ldg.line_data_arr[idx]
 length(ldg::LineDataGroup) = length(ldg.line_data_arr)
@@ -40,7 +41,7 @@ function get_ylim(ldg::LineDataGroup)
   return [y_min, y_max]
 end
 
-function plot(ldg::LineDataGroup, title::AbstractString)
+function plot(ldg::LineDataGroup)
   # TODO: implement ignore extreme
   p = lineplot(ldg[1].x, ldg[1].y, name=ldg[1].name,
                xlim=get_xlim(ldg), ylim=get_ylim(ldg),
@@ -48,18 +49,18 @@ function plot(ldg::LineDataGroup, title::AbstractString)
   for i = 2:length(ldg)
     lineplot!(p, ldg[i].x, ldg[i].y, name=ldg[i].name)
   end
-  title!(p, title)
+  title!(p, ldg.name)
   return p
 end
 
 ld1 = LineData("sin")
 ld2 = LineData("cos")
-ldg = LineDataGroup([ld1, ld2])
+ldg = LineDataGroup([ld1, ld2], "demo")
  
 for i = 1:length(data_x)
   push!(ldg[1], data_x[i], data_y1[i])
   push!(ldg[2], data_x[i], data_y2[i])
-  p = plot(ldg, "demo")
+  p = plot(ldg)
   show(p)
   p_str = string(p)
   # TODO: find a more efficient way to get the plot height
