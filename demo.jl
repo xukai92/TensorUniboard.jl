@@ -11,9 +11,9 @@ data_y2 = cos.(data_x)
 
 # Simulate data stream
 struct LineData
-  x::Vector{Float64}
-  y::Vector{Float64}
-  name::String
+  x::AbstractVector{<:Number}
+  y::AbstractVector{<:Number}
+  name::AbstractString
 end
 LineData(name) = LineData(Float64[], Float64[], name)
 push!(ld::LineData, x::Float64, y::Float64) = (push!(ld.x, x); push!(ld.y, y))
