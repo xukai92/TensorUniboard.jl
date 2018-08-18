@@ -8,7 +8,7 @@ using UnicodePlots
 include("core.jl")
 include("linedata.jl")
 
-function linedatademo()
+function demo()
   x_start = 0
   x_end = 5
   data_x = 0:0.1:5
