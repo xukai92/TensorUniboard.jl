@@ -1,15 +1,3 @@
-using UnicodePlots
-import Base: push!, getindex, length
-
-clean_line_and_cursor_up(n) = (for _ = 1:n print("\r\e[K\e[A") end)
-
-x_start = 0
-x_end = 5
-data_x = 0:0.1:5
-data_y1 = sin.(data_x)
-data_y2 = cos.(data_x)
-
-# Simulate data stream
 struct LineData
   x::AbstractVector{<:Number}
   y::AbstractVector{<:Number}
@@ -46,7 +34,7 @@ function plot(ldg::LineDataGroup)
   # TODO: implement ignore extreme
   p = lineplot(ldg[1].x, ldg[1].y, name=ldg[1].name,
                xlim=get_xlim(ldg), ylim=get_ylim(ldg),
-               grid=false, width=60, height=25)
+               grid=false, width=40, height=20)
   for i = 2:length(ldg)
     lineplot!(p, ldg[i].x, ldg[i].y, name=ldg[i].name)
   end
@@ -54,19 +42,3 @@ function plot(ldg::LineDataGroup)
   return p
 end
 
-ld1 = LineData("sin")
-ld2 = LineData("cos")
-ldg = LineDataGroup([ld1, ld2], "demo")
- 
-for i = 1:length(data_x)
-  push!(ldg[1], data_x[i], data_y1[i])
-  push!(ldg[2], data_x[i], data_y2[i])
-  p = plot(ldg)
-  show(p)
-  p_str = string(p)
-  # TODO: find a more efficient way to get the plot height
-  p_height = length(split(p_str, "\n")) - 1
-  #  p_height = nrows(p.graphics)  # this should be fast but it doesn't include rows for border, title, etc
-  sleep(0.5)
-  clean_line_and_cursor_up(p_height)
-end
