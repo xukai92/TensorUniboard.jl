@@ -1,6 +1,8 @@
 # TensorUniboard: run TensorBoard in your terminal
 
 This package uses UnicodePlots.jl to plot logs from TensorFlow in yout terminal.
+It only contains a demo Julia file at the moment.
+Please check my proof-of-concpet by `julia --color=yes demo.jl`.
 
 ## Requirements
 
