@@ -4,8 +4,8 @@ This package uses UnicodePlots.jl to plot logs from TensorFlow in yout terminal.
 
 ## Requirements
 
-Julia 0.7 (lower version may be compatible but is not tested)
-UnicodePlots.jl 0.3.1 (lower version may be compatible but is not tested)
+- Julia 0.7 (lower version may be compatible but is not tested)
+- UnicodePlots.jl 0.3.1 (lower version may be compatible but is not tested)
 
 ## 
 
