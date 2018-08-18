@@ -1,6 +1,6 @@
 # TensorUniboard: run TensorBoard in your terminal
 
-This package uses UnicodePlots.jl to run TensorBoard in yout terminal.
+This package uses UnicodePlots.jl to plot logs from TensorFlow in yout terminal.
 
 ## Requirements
 
