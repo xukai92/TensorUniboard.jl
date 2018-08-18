@@ -27,6 +27,7 @@ for i = 1:length(data_x)
   # TODO: implement ignore extreme
   p = lineplot(ld1.x, ld1.y, name=ld1.name,
                grid=false, width=60, height=25)
+  # TODO: fix ylim-not-update bug
   lineplot!(p, ld2.x, ld2.y, name=ld2.name)
   title!(p, "demo")
   show(p)
