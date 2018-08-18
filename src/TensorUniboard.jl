@@ -1,9 +1,12 @@
 module TensorUniboard
 
 import Base: push!, getindex, length
-export linedatademo
+export demo
 
 using UnicodePlots
+
+abstract type Data end
+abstract type DataGroup end
 
 include("core.jl")
 include("linedata.jl")

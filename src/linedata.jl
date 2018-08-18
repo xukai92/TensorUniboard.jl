@@ -1,4 +1,4 @@
-struct LineData
+struct LineData <: Data
   x::AbstractVector{<:Number}
   y::AbstractVector{<:Number}
   name::AbstractString
@@ -6,7 +6,7 @@ end
 LineData(name) = LineData(Float64[], Float64[], name)
 push!(ld::LineData, x::Float64, y::Float64) = (push!(ld.x, x); push!(ld.y, y))
 
-struct LineDataGroup
+struct LineDataGroup <: DataGroup
   line_data_arr::Vector{LineData}
   name::AbstractString
 end
