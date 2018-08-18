@@ -1,5 +1,5 @@
 using UnicodePlots
-import Base: push!
+import Base: push!, getindex
 
 clean_line_and_cursor_up(n) = (for _ = 1:n print("\r\e[K\e[A") end)
 
@@ -18,19 +18,36 @@ end
 LineData(name) = LineData(Float64[], Float64[], name)
 push!(ld::LineData, x::Float64, y::Float64) = (push!(ld.x, x); push!(ld.y, y))
 
+struct LineDataGroup
+  line_data_arr::Vector{LineData}
+end
+getindex(ldg::LineDataGroup, idx::Int) = ldg.line_data_arr[idx]
+get_x_mat(ldg::LineDataGroup) = cat(map(ld -> ld.x, ldg.line_data_arr)..., dims=[2])
+get_y_mat(ldg::LineDataGroup) = cat(map(ld -> ld.y, ldg.line_data_arr)..., dims=[2])
+
+function get_xlim(ldg::LineDataGroup)
+  x_mat = get_x_mat(ldg)
+  x_min = min(x_mat...)
+  x_max = max(x_mat...)
+  return [x_min, x_max]
+end
+function get_ylim(ldg::LineDataGroup)
+  y_mat = get_y_mat(ldg)
+  y_min = min(y_mat...)
+  y_max = max(y_mat...)
+  return [y_min, y_max]
+end
+
 ld1 = LineData("sin")
 ld2 = LineData("cos")
-
+ldg = LineDataGroup([ld1, ld2])
+ 
 for i = 1:length(data_x)
-  push!(ld1, data_x[i], data_y1[i])
-  push!(ld2, data_x[i], data_y2[i])
-  # TODO: implement ignore extreme
-  x_min = min(ld1.x..., ld2.x...)
-  x_max = max(ld1.x..., ld2.x...)
-  y_min = min(ld1.y..., ld2.y...)
-  y_max = max(ld1.y..., ld2.y...)
+  push!(ldg[1], data_x[i], data_y1[i])
+  push!(ldg[2], data_x[i], data_y2[i])
+ # TODO: implement ignore extreme
   p = lineplot(ld1.x, ld1.y, name=ld1.name,
-               xlim=[x_min, x_max], ylim=[y_min, y_max],
+               xlim=get_xlim(ldg), ylim=get_ylim(ldg),
                grid=false, width=60, height=25)
   lineplot!(p, ld2.x, ld2.y, name=ld2.name)
   title!(p, "demo")
