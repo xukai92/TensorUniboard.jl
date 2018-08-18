@@ -1,6 +1,6 @@
 using UnicodePlots
 
-move_cursor_up(n) = (for _ = 1:n print("\r\e[A") end)
+clean_line_and_cursor_up(n) = (for _ = 1:n print("\r\e[K\e[A") end)
 
 x_start = 0
 x_end = 5
@@ -22,6 +22,6 @@ for i = 1:length(data_x)
     p_str = string(p)
     # TODO: find a more efficient way to get the plot height
     p_height = length(split(p_str, "\n")) - 1
-    move_cursor_up(p_height)
     sleep(0.5)
+    clean_line_and_cursor_up(p_height)
 end
