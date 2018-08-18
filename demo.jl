@@ -28,6 +28,7 @@ length(ldg::LineDataGroup) = length(ldg.line_data_arr)
 get_x_mat(ldg::LineDataGroup) = cat(map(ld -> ld.x, ldg.line_data_arr)..., dims=[2])
 get_y_mat(ldg::LineDataGroup) = cat(map(ld -> ld.y, ldg.line_data_arr)..., dims=[2])
 
+# TODO: make functions below efficient with stream data
 function get_xlim(ldg::LineDataGroup)
   x_mat = get_x_mat(ldg)
   x_min = min(x_mat...)
