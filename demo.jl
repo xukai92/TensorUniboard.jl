@@ -25,9 +25,13 @@ for i = 1:length(data_x)
   push!(ld1, data_x[i], data_y1[i])
   push!(ld2, data_x[i], data_y2[i])
   # TODO: implement ignore extreme
+  x_min = min(ld1.x..., ld2.x...)
+  x_max = max(ld1.x..., ld2.x...)
+  y_min = min(ld1.y..., ld2.y...)
+  y_max = max(ld1.y..., ld2.y...)
   p = lineplot(ld1.x, ld1.y, name=ld1.name,
+               xlim=[x_min, x_max], ylim=[y_min, y_max],
                grid=false, width=60, height=25)
-  # TODO: fix ylim-not-update bug
   lineplot!(p, ld2.x, ld2.y, name=ld2.name)
   title!(p, "demo")
   show(p)
