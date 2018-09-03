@@ -3,9 +3,8 @@
 This package uses UnicodePlots.jl to plot logs from TensorFlow in yout terminal.
 It only contains a demo Julia file at the moment.
 Please check my proof-of-concpet by
-```julia
-using TensorUniboard
-linedatademo()
+```bash
+julia --color=yes test/demo.jl
 ```
 
 NOTE: you need to add this package first by `Pkg.add("https://github.com/xukai92/TensorUniboard.jl")`.

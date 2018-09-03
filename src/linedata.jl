@@ -34,7 +34,7 @@ function plot(ldg::LineDataGroup)
   # TODO: implement ignore extreme
   p = lineplot(ldg[1].x, ldg[1].y, name=ldg[1].name,
                xlim=get_xlim(ldg), ylim=get_ylim(ldg),
-               grid=false, width=40, height=20)
+               grid=false, width=50, height=20)
   for i = 2:length(ldg)
     lineplot!(p, ldg[i].x, ldg[i].y, name=ldg[i].name)
   end

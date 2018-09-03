@@ -3,6 +3,7 @@ module TensorUniboard
 import Base: push!, getindex, length, show
 export demo, EventAccumulator
 
+using PyCall: PyObject
 using UnicodePlots
 
 abstract type Data end
